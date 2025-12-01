@@ -1,0 +1,43 @@
+name: CD to AWS CodeDeploy
+
+on:
+  push:
+    branches:
+      - main  # o tu rama de despliegue
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Descargar el código del repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Configurar AWS
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Cambia a tu región
+
+      # 3️⃣ Empaquetar la aplicación en ZIP
+      - name: Create deployment package
+        run: |
+          zip -r deploy.zip . -x "*.git*" -x "node_modules/*" -x "*.github/*"
+
+      # 4️⃣ Subir ZIP a S3
+      - name: Upload to S3
+        run: |
+          aws s3 cp deploy.zip s3://mi-app-deploy-bucket-danaebarba/deploy.zip
+
+      # 5️⃣ Crear deployment en CodeDeploy
+      - name: Deploy with CodeDeploy
+        run: |
+          aws deploy create-deployment \
+            --application-name mi-app \
+            --deployment-group-name mi-app-group \
+            --s3-location bucket=mi-app-deploy-bucket-danaebarba,bundleType=zip,key=deploy.zip \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --description "Deployment from GitHub Actions"

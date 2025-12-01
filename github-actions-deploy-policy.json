@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "S3Put",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::mi-app-deploy-bucket-danaebarba",
+        "arn:aws:s3:::mi-app-deploy-bucket-danaebarba/*"
+      ]
+    },
+    {
+      "Sid": "CodeDeploy",
+      "Effect": "Allow",
+      "Action": [
+        "codedeploy:CreateDeployment",
+        "codedeploy:GetDeployment",
+        "codedeploy:GetDeploymentConfig",
+        "codedeploy:RegisterApplicationRevision",
+        "codedeploy:ListApplications",
+        "codedeploy:ListDeploymentGroups",
+        "codedeploy:GetApplication"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+

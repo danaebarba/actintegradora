@@ -11,16 +11,19 @@
       ]
     },
     {
-      "Sid": "CodeDeploy",
+      "Sid": "CodeDeployFullAccess",
       "Effect": "Allow",
       "Action": [
+        "codedeploy:CreateApplication",
+        "codedeploy:CreateDeploymentGroup",
         "codedeploy:CreateDeployment",
+        "codedeploy:GetApplication",
         "codedeploy:GetDeployment",
         "codedeploy:GetDeploymentConfig",
         "codedeploy:RegisterApplicationRevision",
         "codedeploy:ListApplications",
         "codedeploy:ListDeploymentGroups",
-        "codedeploy:GetApplication"
+        "codedeploy:ListDeployments"
       ],
       "Resource": "*"
     }

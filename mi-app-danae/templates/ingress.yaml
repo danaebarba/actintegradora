@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "mi-app.fullname" . }}
+  name: {{ include "mi-app-danae.fullname" . }}
   labels:
-    {{- include "mi-app.labels" . | nindent 4 }}
+    {{- include "mi-app-danae.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -35,7 +35,7 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "mi-app.fullname" $ }}
+                name: {{ include "mi-app-danae.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}

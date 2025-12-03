@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mi-app.fullname" . }}
+  name: {{ include "mi-app-danae.fullname" . }}
   labels:
-    {{- include "mi-app.labels" . | nindent 4 }}
+    {{- include "mi-app-danae.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "mi-app.name" . }}
+      app: {{ include "mi-app-danae.name" . }}
   template:
     metadata:
       labels:
-        app: {{ include "mi-app.name" . }}
+        app: {{ include "mi-app-danae.name" . }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

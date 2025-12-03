@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mi-app
+  name: mi-app-danae
   labels:
-    app: mi-app
+    app: mi-app-danae
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: mi-app
+      app: mi-app-danae
   template:
     metadata:
       labels:
-        app: mi-app
+        app: mi-app-danae
     spec:
       containers:
-        - name: mi-app
-          image: mi-app:1.0.0
+        - name: mi-app-danae
+          image: mi-app-danae:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000

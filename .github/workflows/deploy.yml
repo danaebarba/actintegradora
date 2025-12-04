@@ -26,13 +26,13 @@ jobs:
 
       - name: Upload ZIP to S3
         run: |
-          aws s3 cp deploy.zip s3://mi-app-deploy-bucket-danaebarba/releases/deploy.zip
+          aws s3 cp deploy.zip s3://mi-app-deploy-bucket-danaebarba/deploy.zip
 
       - name: Deploy to CodeDeploy
         run: |
           aws deploy create-deployment \
             --application-name mi-app-danae \
             --deployment-group-name mi-app-danae-group \
-            --s3-location bucket=mi-app-deploy-bucket-danaebarba,bundleType=zip,key=releases/deploy.zip \
+            --s3-location bucket=mi-app-deploy-bucket-danaebarba,bundleType=zip,key=deploy.zip \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --description "Deployment from GitHub Actions"
